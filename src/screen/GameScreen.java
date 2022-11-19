@@ -286,7 +286,7 @@ public class GameScreen extends Screen {
 
 		}
 
-		manageCollisions();
+		manageCollisionsShip();
 		manageCollisionsN();
 		manageCollisionsH();
 		cleanBullets();
@@ -422,7 +422,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
-	private void manageCollisions() {
+	private void manageCollisionsShip() {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
@@ -435,47 +435,60 @@ public class GameScreen extends Screen {
 								+ " lives remaining.");
 					}
 				}
-
 			} else {
-				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (!enemyShip.isDestroyed()
-							&& checkCollision(bullet, enemyShip)) {
-						enemyLives = enemyShip.getEnemyLives();
-						if (enemyLives == 1) {
-							this.score += enemyShip.getPointValue();
-							this.shipsDestroyed++;
-							Random random = new Random();
-							int per = random.nextInt(3);
-							if (per == 0) {
-								items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
-										enemyShip.getPositionY(), ITEM_SPEED));
-							}
-							this.enemyShipFormation.destroy(enemyShip);
-							this.coin += enemyShip.getPointValue() / 10;
-							Coin.balance += enemyShip.getPointValue() / 10;
-							recyclable.add(bullet);
-						}
-						else {
-							enemyLives--;
-							enemyShip.setenemyLives(enemyLives);
-							recyclable.add(bullet);
-						}
-					}
-				if (this.enemyShipSpecial != null
-						&& !this.enemyShipSpecial.isDestroyed()
-						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
-					this.shipsDestroyed++;
-					this.enemyShipSpecial.destroy();
-					this.enemyShipSpecialExplosionCooldown.reset();
-					this.coin += this.enemyShipSpecial.getPointValue() / 10;
-					Coin.balance += this.enemyShipSpecial.getPointValue() / 10;
-					recyclable.add(bullet);
-				}
+				manageCollisionsEnemyShip(recyclable, bullet);
 			}
+
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
 	}
+
+	private void manageCollisionsEnemyShip(Set<Bullet> recyclable, Bullet bullet) {
+		for (EnemyShip enemyShip : this.enemyShipFormation)
+			if (!enemyShip.isDestroyed()
+					&& checkCollision(bullet, enemyShip)) {
+				enemyLives = enemyShip.getEnemyLives();
+				if (enemyLives == 1) {
+					this.score += enemyShip.getPointValue();
+					this.shipsDestroyed++;
+					Random random = new Random();
+					int per = random.nextInt(3);
+					if (per == 0) {
+						items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
+								enemyShip.getPositionY(), ITEM_SPEED));
+					}
+					this.enemyShipFormation.destroy(enemyShip);
+					this.coin += enemyShip.getPointValue() / 10;
+					Coin.balance += enemyShip.getPointValue() / 10;
+					recyclable.add(bullet);
+				}
+				else {
+					enemyLives--;
+					enemyShip.setenemyLives(enemyLives);
+					recyclable.add(bullet);
+				}
+			}
+
+		manageCollisionsEnemyShipSpecial(recyclable, bullet);
+
+
+	}
+
+	private void manageCollisionsEnemyShipSpecial (Set<Bullet> recyclable, Bullet bullet) {
+		if (this.enemyShipSpecial != null
+				&& !this.enemyShipSpecial.isDestroyed()
+				&& checkCollision(bullet, this.enemyShipSpecial)) {
+			this.score += this.enemyShipSpecial.getPointValue();
+			this.shipsDestroyed++;
+			this.enemyShipSpecial.destroy();
+			this.enemyShipSpecialExplosionCooldown.reset();
+			this.coin += this.enemyShipSpecial.getPointValue() / 10;
+			Coin.balance += this.enemyShipSpecial.getPointValue() / 10;
+			recyclable.add(bullet);
+		}
+	}
+
+
 
 	private void manageCollisionsN() {
 		Set<BulletN> recyclable = new HashSet<BulletN>();
