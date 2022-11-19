@@ -15,9 +15,9 @@ import entity.*;
 
 /**
  * Implements the game screen, where the action happens.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class GameScreen extends Screen {
 
@@ -151,8 +151,8 @@ public class GameScreen extends Screen {
 	 *                     Frames per second, frame rate at which the game is run.
 	 */
 	public GameScreen(final GameState gameState,
-			final GameSettings gameSettings, final boolean bonusLife,
-			final int width, final int height, final int fps) {
+					  final GameSettings gameSettings, final boolean bonusLife,
+					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
@@ -356,7 +356,7 @@ public class GameScreen extends Screen {
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
 					- (System.currentTimeMillis()
-							- this.gameStartTime))
+					- this.gameStartTime))
 					/ 1000);
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
@@ -580,97 +580,86 @@ public class GameScreen extends Screen {
 		for (entity.Item item : this.items) {
 			if (checkCollision(item, this.ship) && !this.levelFinished) {
 				recyclable.add(item);
-				Random random = new Random();
-				int per = random.nextInt(7);
-
-				if (per == 0) {
-					if (this.lives < 3) {
-						this.lives++;
-						Sound.playSound("Bgm/lifePoint.wav");
-						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
-						this.ship.item_number = 1;
-						this.ship.itemimgGet();
-					}
-					else {
-						if (ship.getSHOOTING_INTERVAL() > 300) {
-							int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
-							ship.setSHOOTING_INTERVAL(shootingSpeed);
-							ship.setSHOOTING_COOLDOWN(shootingSpeed);
-							Sound.playSound("Bgm/attackSpeed.wav");
-							this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-						}
-						else {
-							Sound.playSound("Bgm/itemFail.wav");
-							this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
-						}
-						this.ship.item_number = 2;
-						this.ship.itemimgGet();
-					}
-				}else if (per == 1) {
-					if (ship.getSHOOTING_INTERVAL() > 300) {
-						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
-						ship.setSHOOTING_INTERVAL(shootingSpeed);
-						ship.setSHOOTING_COOLDOWN(shootingSpeed);
-						Sound.playSound("Bgm/attackSpeed.wav");
-						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-					}
-					else {
-						Sound.playSound("Bgm/itemFail.wav");
-						this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
-					}
-					this.ship.item_number = 2;
-					this.ship.itemimgGet();
-				}
-				else if (per == 2) {
-					int shipSpeed = (int) (ship.getSPEED() + 1);
-					ship.setSPEED(shipSpeed);
-					Sound.playSound("Bgm/movingSpeed.wav");
-					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
-					this.ship.item_number = 3;
-					this.ship.itemimgGet();
-				}else if (per == 3) {
-					int ultC = (ship.getUltC() + 1);
-					ship.setUltC(ultC);
-					this.logger.info("Acquire a Ultimate charge," + ultC + " Ultimate charge of the ship.");
-					this.ship.item_number = 4;
-					this.ship.itemimgGet();
-				}else if (per == 4) {
-					bullets.add(BulletPool.getBullet(ship.getPositionX(),
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					Sound.playSound("Bgm/bullet1.wav");
-					this.logger.info("Three bullets");
-				}else if (per == 5) {
-					bullets.add(BulletPool.getBullet(ship.getPositionX()+shipWidth/2,
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
-							ship.getPositionY()+shipWidth/2, ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
-							ship.getPositionY()+shipWidth, ship.getBULLET_SPEED(), 0));
-					Sound.playSound("Bgm/bullet2.wav");
-					this.logger.info("Three bullets");
-				}else {
-					bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX(),
-							ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
-							ship.getPositionY() - shipWidth / 2, ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
-							ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
-					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
-							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-					Sound.playSound("Bgm/bullet3.wav");
-					this.logger.info("Five bullets");
-				}
-				this.ship.getItem();
+				itemEffect();
 			}
 		}
 		this.items.removeAll(recyclable);
 		ItemPool.recycle(recyclable);
+	}
+	private void itemEffect() {
+		Random random = new Random();
+		int per = random.nextInt(7);
+		if (per<2){AItem(per);}
+		else if (per<4){BItem(per);}
+		else bulletItem(per);
+		this.ship.itemimgGet();
+		this.ship.getItem();
+	}
+
+	private void BItem(int per) {
+		if (per == 2) {
+			int shipSpeed = ship.getSPEED() + 1;
+			ship.setSPEED(shipSpeed);
+			this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+			this.ship.item_number = 3;
+		}else if (per == 3) {
+			int ultC = ship.getUltC() + 1;
+			ship.setUltC(ultC);
+			this.logger.info("Acquire a Ultimate charge," + ultC + " Ultimate charge of the ship.");
+			this.ship.item_number = 4;
+		}
+	}
+	private void AItem(int per) {
+		int shootingSpeed = ship.getSHOOTING_INTERVAL();
+		if (per == 0) {
+			if(this.lives < 3){this.lives++;
+				this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
+				this.ship.item_number = 1;
+			}
+			else per = 1;
+		}if (per == 1) {
+			if(shootingSpeed > 300){
+				shootingSpeed -= 100;
+				ship.setSHOOTING_INTERVAL(shootingSpeed);
+				ship.setSHOOTING_COOLDOWN(shootingSpeed);
+				this.ship.item_number = 2;
+			}
+			else{
+				this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
+				this.ship.item_number = 2;
+			}
+		}
+	}
+	private void bulletItem(int per) {
+		if (per == 4) {
+			bullets.add(BulletPool.getBullet(ship.getPositionX(),
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			this.logger.info("Three bullets");
+		} else if (per == 5) {
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+					ship.getPositionY() + shipWidth / 2, ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+					ship.getPositionY() + shipWidth, ship.getBULLET_SPEED(), 0));
+			this.logger.info("Three bullets");
+		} else {
+			bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX(),
+					ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+					ship.getPositionY() - shipWidth / 2, ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
+					ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
+					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+			this.logger.info("Five bullets");
+		}
 	}
 
 	/**
