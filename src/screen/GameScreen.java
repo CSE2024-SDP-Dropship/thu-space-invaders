@@ -614,6 +614,7 @@ public class GameScreen extends Screen {
 			int shipSpeed = ship.getSPEED() + 1;
 			ship.setSPEED(shipSpeed);
 			this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+			Sound.playSound("Bgm/movingSpeed.wav");
 			this.ship.item_number = 3;
 		}else if (per == 3) {
 			int ultC = ship.getUltC() + 1;
@@ -627,6 +628,7 @@ public class GameScreen extends Screen {
 		if (per == 0) {
 			if(this.lives < 3){this.lives++;
 				this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
+				Sound.playSound("Bgm/lifePoint.wav");
 				this.ship.item_number = 1;
 			}
 			else per = 1;
@@ -635,10 +637,12 @@ public class GameScreen extends Screen {
 				shootingSpeed -= 100;
 				ship.setSHOOTING_INTERVAL(shootingSpeed);
 				ship.setSHOOTING_COOLDOWN(shootingSpeed);
+				Sound.playSound("Bgm/attackSpeed.wav");
 				this.ship.item_number = 2;
 			}
 			else{
 				this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
+				Sound.playSound("Bgm/itemFail.wav");
 				this.ship.item_number = 2;
 			}
 		}
@@ -652,6 +656,7 @@ public class GameScreen extends Screen {
 			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
 					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 			this.logger.info("Three bullets");
+			Sound.playSound("Bgm/bullet1.wav");
 		} else if (per == 5) {
 			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
 					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
@@ -660,6 +665,7 @@ public class GameScreen extends Screen {
 			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
 					ship.getPositionY() + shipWidth, ship.getBULLET_SPEED(), 0));
 			this.logger.info("Three bullets");
+			Sound.playSound("Bgm/bullet2.wav");
 		} else {
 			bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
 					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
@@ -672,6 +678,7 @@ public class GameScreen extends Screen {
 			bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
 					ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 			this.logger.info("Five bullets");
+			Sound.playSound("Bgm/bullet3.wav");
 		}
 	}
 

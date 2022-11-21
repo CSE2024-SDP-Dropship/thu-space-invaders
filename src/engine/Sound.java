@@ -9,46 +9,6 @@ import java.net.URL;
 
 public class Sound {
 
-
-    public void backroundmusic(){
-        try{
-            String bgm = "Bgm/background.wav";
-
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void bulletsound() {
-        try {
-            String bgm = "Bgm/ball.wav";
-
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void explosionsound() {
-        try {
-            String bgm = "Bgm/bomb.wav";
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public static void playSound(String sound){
         try {
             AudioInputStream stream_itemEffect = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
