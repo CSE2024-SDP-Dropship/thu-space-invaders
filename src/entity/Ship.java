@@ -105,7 +105,7 @@ public class Ship extends Entity {
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
 
-			new Sound().bulletsound();
+			Sound.playSound("Bgm/ball.wav");;
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
 					positionY, BULLET_SPEED, 0));
@@ -166,10 +166,10 @@ public class Ship extends Entity {
 	 * Switches the ship to its destroyed state.
 	 */
 	public final void destroy() {
-		new Sound().explosionsound();
+		Sound.playSound("Bgm/bomb.wav");
 		this.destructionCooldown.reset();
 
-		new Sound().explosionsound();
+		Sound.playSound("Bgm/bomb.wav");
 	}
 
 	/**
