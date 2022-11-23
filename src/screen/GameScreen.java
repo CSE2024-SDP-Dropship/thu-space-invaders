@@ -358,8 +358,13 @@ public class GameScreen extends Screen {
 					- (System.currentTimeMillis()
 					- this.gameStartTime))
 					/ 1000);
-			drawManager.drawCountDown(this, this.level, countdown,
-					this.bonusLife);
+			if(level ==1)
+				drawManager.drawWorld1(this, this.level, countdown,
+						this.bonusLife);
+			else
+				drawManager.drawCommingSoon(this, this.level, countdown,
+						this.bonusLife);
+
 			drawManager.drawHorizontalLine(this, this.height / 2 - this.height
 					/ 12);
 			drawManager.drawHorizontalLine(this, this.height / 2 + this.height
