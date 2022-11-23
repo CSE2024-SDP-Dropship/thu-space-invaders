@@ -375,9 +375,9 @@ public final class DrawManager {
 	 */
 	public void drawHorizontalLine(final Screen screen, final int positionY) {
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
-		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
-		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
-				positionY + 1);
+//		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
+//		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
+//				positionY + 1);
 	}
 
 	/**
@@ -971,7 +971,11 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2, height);
 	}
-
+	public void drawCenteredSmallString(final Screen screen, final String string,
+										final int height) {
+		backBufferGraphics.setFont(fontSmall);
+		backBufferGraphics.drawString(string, 30 , height);
+	}
 	/**
 	 * Countdown to game start.
 	 *
@@ -1005,6 +1009,101 @@ public final class DrawManager {
 			}
 		else if (number != 0)
 			drawCenteredBigString(screen, Integer.toString(number),
+					screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+		else
+			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
+					+ fontBigMetrics.getHeight() / 3);
+	}
+
+	public void drawWorld1(final Screen screen, final int level,
+							   final int number, final boolean bonusLife) {
+		int rectWidth = screen.getWidth();
+
+		backBufferGraphics.setColor(new Color(128,128,128));
+
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - screen.getHeight()/4 ,
+				rectWidth, screen.getHeight() / 2 );
+
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+
+		if (number>=4) {
+			if (!bonusLife) {
+				drawCenteredSmallString(screen, "The Earth has been completely conquered",
+						screen.getHeight() / 3);
+				drawCenteredSmallString(screen, "by the extraterrestrial planet Delta since its",
+						screen.getHeight() / 3
+								+ fontBigMetrics.getHeight() +10 );
+				drawCenteredSmallString(screen, "invasion in 2032. Currently, as of 2050, mankind",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 2);
+				drawCenteredSmallString(screen, "is only divided into two groups, which have",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 3);
+				drawCenteredSmallString(screen, "surrendered to them, and humanity, which",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 4);
+				drawCenteredBigString(screen, "1/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+			} else {
+				drawCenteredSmallString(screen, "Level " + level
+								+ " - Bonus life!",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
+			}
+		}
+		else if (number >=2) {
+			drawCenteredSmallString(screen, "tries to regain the Earth until the end.",
+					screen.getHeight() / 3);
+			drawCenteredSmallString(screen, "The group trying to regain the Earth is ",
+					screen.getHeight() / 3
+							+ fontBigMetrics.getHeight() + 10);
+			drawCenteredSmallString(screen, "characterized by a group of retired soldiers",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 2);
+			drawCenteredSmallString(screen, "without a group name or system. The leader",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 3);
+			drawCenteredBigString(screen, "2/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+		}
+		else {
+			drawCenteredSmallString(screen, "was me, Jacob, who was once an elite pilot",
+					screen.getHeight() / 3);
+			drawCenteredSmallString(screen, "of the Korean Air Force. On behalf of this",
+					screen.getHeight() / 3
+							+ fontBigMetrics.getHeight() + 10);
+			drawCenteredSmallString(screen, "group, Jacob tries to attack the home base",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 2);
+			drawCenteredSmallString(screen, "of the exoplanet Delta against humanity",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 3);
+			drawCenteredSmallString(screen, "who one day gave in to them alone.",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 4);
+			drawCenteredBigString(screen, "3/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+		}
+	}
+
+	public void drawCommingSoon(final Screen screen, final int level,
+							  final int number, final boolean bonusLife) {
+		int rectWidth = screen.getWidth();
+		int rectHeight = screen.getHeight() / 6;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+				rectWidth, rectHeight);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		if (number >= 4)
+			if (!bonusLife) {
+				drawCenteredBigString(screen, "World",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
+			} else {
+				drawCenteredBigString(screen, "Level " + level
+								+ " - Bonus life!",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
+			}
+		else if (number != 0)
+			drawCenteredBigString(screen, "Comming Soon",
 					screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
 		else
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
