@@ -1083,6 +1083,53 @@ public final class DrawManager {
 		}
 	}
 
+	public void drawWorld2(final Screen screen, final int level,
+						   final int number, final boolean bonusLife) {
+		int rectWidth = screen.getWidth();
+
+		backBufferGraphics.setColor(new Color(110,136,153));
+
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - screen.getHeight()/4 ,
+				rectWidth, screen.getHeight() / 2 );
+
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+
+		if (number>=3) {
+			if (!bonusLife) {
+
+				drawCenteredSmallString(screen, "Space, which has been covered with various ",
+						screen.getHeight() / 3);
+				drawCenteredSmallString(screen, "space debris due to several space wars.",
+						screen.getHeight() / 3
+								+ fontBigMetrics.getHeight() +10 );
+				drawCenteredSmallString(screen, "We can see the bodies of astronauts ",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 2);
+				drawCenteredSmallString(screen, "or aliens everywhere.",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 3);
+				drawCenteredBigString(screen, "1/2", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+			} else {
+				drawCenteredSmallString(screen, "Level " + level
+								+ " - Bonus life!",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
+			}
+		}
+
+		else {
+			drawCenteredSmallString(screen, "Jacob, who pushes out the remnants of",
+					screen.getHeight() / 3);
+			drawCenteredSmallString(screen, "of the Korean Air Force. On behalf of this",
+					screen.getHeight() / 3
+							+ fontBigMetrics.getHeight() + 10);
+			drawCenteredSmallString(screen, "heads to the exoplanet Delta to avenge mankind.",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 2);
+			drawCenteredBigString(screen, "2/2", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+		}
+	}
+
 	public void drawCommingSoon(final Screen screen, final int level,
 							  final int number, final boolean bonusLife) {
 		int rectWidth = screen.getWidth();
