@@ -41,7 +41,7 @@ public class Ship extends Entity {
 	private Cooldown destructionCooldown;
 	/** Item acquire effect duration time. */
 	private Cooldown itemCooldown;
-	/** Movement of the ship for each unit of time. */
+	private Cooldown ultimateCooldown;
 	private int destructCool = 300;
 
 	private int frameCnt = 0;
@@ -62,6 +62,7 @@ public class Ship extends Entity {
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.itemCooldown = Core.getCooldown(300);
+		this.ultimateCooldown = Core.getCooldown(1000);
 		this.destructionCooldown = Core.getCooldown(destructCool);
 		switch (Core.getDiff()) {
 			case 0:
@@ -187,7 +188,12 @@ public class Ship extends Entity {
 	public final void itemimgGet(){
 		this.itemCooldown.reset();
 	}
-
+	/**
+	 * Switches the ship to its ultimate skill state.
+	 */
+	public final void ultSkillOn(){
+		this.ultimateCooldown.reset();
+	}
 	/**
 	 * Checks if the ship acquired an item.
 	 *

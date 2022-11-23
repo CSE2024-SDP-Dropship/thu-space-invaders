@@ -620,6 +620,10 @@ public class GameScreen extends Screen {
 			int ultC = ship.getUltC() + 1;
 			ship.setUltC(ultC);
 			this.logger.info("Acquire a Ultimate charge," + ultC + " Ultimate charge of the ship.");
+			if (ship.getUltC()>4){
+				ultimateSkill();
+				ship.ultSkillOn();
+			}
 			this.ship.item_number = 4;
 		}
 	}
@@ -681,7 +685,7 @@ public class GameScreen extends Screen {
 			Sound.playSound("Bgm/bullet3.wav");
 		}
 	}
-
+	private void ultimateSkill() {}
 	/**
 	 * Checks if two entities are colliding.
 	 *
