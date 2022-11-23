@@ -361,6 +361,9 @@ public class GameScreen extends Screen {
 			if(level ==1)
 				drawManager.drawWorld1(this, this.level, countdown,
 						this.bonusLife);
+			else if(level ==2)
+				drawManager.drawWorld2(this, this.level, countdown,
+						this.bonusLife);
 			else
 				drawManager.drawCommingSoon(this, this.level, countdown,
 						this.bonusLife);
