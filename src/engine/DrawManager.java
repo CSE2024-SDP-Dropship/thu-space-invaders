@@ -150,7 +150,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
-			spriteMap.put(SpriteType.EnemyShipPlus, new boolean[16][7]);
+			/** spriteMap.put(SpriteType.EnemyShipPlus, new boolean[16][7]); */
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
 			spriteMap.put(SpriteType.Explosion3, new boolean[13][7]);
