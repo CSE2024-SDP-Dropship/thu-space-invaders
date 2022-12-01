@@ -1133,6 +1133,71 @@ public final class DrawManager {
 		}
 	}
 
+	public void drawWorld3(final Screen screen, final int level,
+						   final int number, final boolean bonusLife) {
+		int rectWidth = screen.getWidth();
+
+		backBufferGraphics.setColor(new Color(149, 105, 110));
+
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - screen.getHeight()/4 ,
+				rectWidth, screen.getHeight() / 2 );
+
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+
+		if (number>=4) {
+			if (!bonusLife) {
+				drawCenteredSmallString(screen, "Delta, an alien planet that has finally arrived. ",screen.getHeight() / 3);
+				drawCenteredSmallString(screen, "He entered the enemy camp without knowing ",
+						screen.getHeight() / 3
+								+ fontBigMetrics.getHeight() +10 );
+				drawCenteredSmallString(screen, "why he invaded the earth or why he threatened humanity. ",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 2);
+				drawCenteredSmallString(screen, "One thing that was certain was that there were many",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 3);
+				drawCenteredSmallString(screen, "things on this planet that seemed to be familiar.",
+						screen.getHeight() / 3
+								+ (fontBigMetrics.getHeight()+10) * 4);
+				drawCenteredBigString(screen, "1/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+			} else {
+				drawCenteredSmallString(screen, "Level " + level
+								+ " - Bonus life!",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
+			}
+		}
+		else if (number >=2) {
+			drawCenteredSmallString(screen, "But the objects appear to have been thrown away ",
+					screen.getHeight() / 3);
+			drawCenteredSmallString(screen, "for their full use on Earth. The delta here is like looking ",
+					screen.getHeight() / 3
+							+ fontBigMetrics.getHeight() + 10);
+			drawCenteredSmallString(screen, "at a landfill on Earth. I remember hearing in the news",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 2);
+			drawCenteredSmallString(screen, " that I had leaked before Delta was invaded that there",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 3);
+			drawCenteredBigString(screen, "2/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+		}
+		else {
+			drawCenteredSmallString(screen, "was a way to solve the vast amount of garbage ",
+					screen.getHeight() / 3);
+			drawCenteredSmallString(screen, "on Earth that was in question at the time…..",
+					screen.getHeight() / 3
+							+ fontBigMetrics.getHeight() + 10);
+			drawCenteredSmallString(screen, " But at this moment when we know the motive for ",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 2);
+			drawCenteredSmallString(screen, "the invasion, the planet's enemies are approaching...….",
+					screen.getHeight() / 3
+							+ (fontBigMetrics.getHeight() + 10) * 3);
+
+			drawCenteredBigString(screen, "3/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
+		}
+	}
+
 	public void drawCommingSoon(final Screen screen, final int level,
 							  final int number, final boolean bonusLife) {
 		int rectWidth = screen.getWidth();
