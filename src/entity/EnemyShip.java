@@ -90,13 +90,13 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 	}
-	public EnemyShip_P() {
-		super(-32, 60, 16 * 2, 7 * 2, Color.White);
-
-		this.spriteType = SpriteType.EnemyShipPlus;
-		this.isDestroyed = false;
-		this.pointValue = PlUS_TYPE_POINTS;
-	}
+//	public EnemyShip_P() {
+//		super(-32, 60, 16 * 2, 7 * 2, Color.White);
+//
+//		this.spriteType = SpriteType.EnemyShipPlus;
+//		this.isDestroyed = false;
+//		this.pointValue = PlUS_TYPE_POINTS;
+//	}
 
 	/**
 	 * Getter for the score bonus if this ship is destroyed.
