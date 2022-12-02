@@ -666,26 +666,25 @@ public final class DrawManager {
 	 *                       If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-			final int livesRemaining, final int shipsDestroyed,
-			final float accuracy, final boolean isNewRecord) {
-		String scoreString = String.format("score %04d", score);
-		String livesRemainingString = "lives remaining " + livesRemaining;
-		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
-		String accuracyString = String
-				.format("accuracy %.2f%%", accuracy * 100);
+							final int livesRemaining, final int shipsDestroyed,
+							final float accuracy, final boolean isNewRecord) {
+		String String1 = "One courageous person has revived";
+		String String2 = "the existence of the present human race";
+		String String3 = "We will build civilization again,communicate,";
+		String String4 = " unite and compete, and put everything back";
 
 		int height = isNewRecord ? 4 : 2;
 
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, scoreString, screen.getHeight()
+		drawCenteredRegularString(screen, String1, screen.getHeight()
 				/ height);
-		drawCenteredRegularString(screen, livesRemainingString,
+		drawCenteredRegularString(screen, String2,
 				screen.getHeight() / height + fontRegularMetrics.getHeight()
 						* 2);
-		drawCenteredRegularString(screen, shipsDestroyedString,
+		drawCenteredRegularString(screen, String3,
 				screen.getHeight() / height + fontRegularMetrics.getHeight()
 						* 4);
-		drawCenteredRegularString(screen, accuracyString, screen.getHeight()
+		drawCenteredRegularString(screen, String4, screen.getHeight()
 				/ height + fontRegularMetrics.getHeight() * 6);
 	}
 
@@ -700,42 +699,21 @@ public final class DrawManager {
 	 *                         Current character selected for modification.
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
-			final int nameCharSelected) {
-		String newRecordString = "New Record!";
-		String introduceNameString = "Introduce name:";
-
+							  final int nameCharSelected) {
+		String newRecordString = "(As the list of project participants,";
+		String introduceNameString = "such as producers and developers, goes up,";
+		String introduceNameString1 = "the appearance of miscellaneous mobs and";
+		String introduceNameString2 ="boss mobs goes up, and the credit is closed.)";
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 8);
+		drawCenteredRegularString(screen, introduceNameString, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 10);
-		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, introduceNameString,
+		drawCenteredRegularString(screen, introduceNameString1,
 				screen.getHeight() / 4 + fontRegularMetrics.getHeight() * 12);
+		drawCenteredRegularString(screen, introduceNameString2,
+				screen.getHeight() / 4 + fontRegularMetrics.getHeight() * 14);
 
-		// 3 letters name.
-		int positionX = screen.getWidth()
-				/ 2
-				- (fontRegularMetrics.getWidths()[name[0]]
-						+ fontRegularMetrics.getWidths()[name[1]]
-						+ fontRegularMetrics.getWidths()[name[2]]
-						+ fontRegularMetrics.getWidths()[' ']) / 2;
-
-		for (int i = 0; i < 3; i++) {
-			if (i == nameCharSelected)
-				backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
-			else
-				backBufferGraphics.setColor(Color.WHITE);
-
-			positionX += fontRegularMetrics.getWidths()[name[i]] / 2;
-			positionX = i == 0 ? positionX
-					: positionX
-							+ (fontRegularMetrics.getWidths()[name[i - 1]]
-									+ fontRegularMetrics.getWidths()[' ']) / 2;
-
-			backBufferGraphics.drawString(Character.toString(name[i]),
-					positionX,
-					screen.getHeight() / 4 + fontRegularMetrics.getHeight()
-							* 14);
-		}
 	}
 
 	/**
@@ -749,14 +727,16 @@ public final class DrawManager {
 	 *                     If the score is a new high score.
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
-			final boolean isNewRecord) {
-		String gameOverString = "Game Over";
-		String continueOrExitString = "Press Space to play again, Escape to exit";
+							 final boolean isNewRecord) {
+		String  EndingKreddit= "Ending creddit";
+		String continueOrExitString = "Manufacturer: Drop That Item";
+
+		String continueOrExitString1 = "Developer:  Park Joong-hyun";
 
 		int height = isNewRecord ? 4 : 2;
 
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
-		drawCenteredBigString(screen, gameOverString, screen.getHeight()
+		drawCenteredBigString(screen, EndingKreddit, screen.getHeight()
 				/ height - fontBigMetrics.getHeight() * 2);
 
 		if (acceptsInput)
@@ -765,6 +745,8 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
+		drawCenteredRegularString(screen, continueOrExitString1,
+				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10+15);
 	}
 
 	/**
@@ -1030,7 +1012,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 
 		if (number>=4) {
-			if (!bonusLife) {
+
 				drawCenteredSmallString(screen, "The Earth has been completely conquered",
 						screen.getHeight() / 3);
 				drawCenteredSmallString(screen, "by the extraterrestrial planet Delta since its",
@@ -1046,12 +1028,7 @@ public final class DrawManager {
 						screen.getHeight() / 3
 								+ (fontBigMetrics.getHeight()+10) * 4);
 				drawCenteredBigString(screen, "1/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
-			} else {
-				drawCenteredSmallString(screen, "Level " + level
-								+ " - Bonus life!",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
-			}
+
 		}
 		else if (number >=2) {
 			drawCenteredSmallString(screen, "tries to regain the Earth until the end.",
@@ -1098,7 +1075,6 @@ public final class DrawManager {
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 
 		if (number>=3) {
-			if (!bonusLife) {
 
 				drawCenteredSmallString(screen, "Space, which has been covered with various ",
 						screen.getHeight() / 3);
@@ -1112,12 +1088,7 @@ public final class DrawManager {
 						screen.getHeight() / 3
 								+ (fontBigMetrics.getHeight()+10) * 3);
 				drawCenteredBigString(screen, "1/2", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
-			} else {
-				drawCenteredSmallString(screen, "Level " + level
-								+ " - Bonus life!",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
-			}
+
 		}
 
 		else {
@@ -1145,7 +1116,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 
 		if (number>=4) {
-			if (!bonusLife) {
+
 				drawCenteredSmallString(screen, "Delta, an alien planet that has finally arrived. ",screen.getHeight() / 3);
 				drawCenteredSmallString(screen, "He entered the enemy camp without knowing ",
 						screen.getHeight() / 3
@@ -1160,12 +1131,7 @@ public final class DrawManager {
 						screen.getHeight() / 3
 								+ (fontBigMetrics.getHeight()+10) * 4);
 				drawCenteredBigString(screen, "1/3", screen.getHeight() / 3 + (fontBigMetrics.getHeight()+7) * 5);
-			} else {
-				drawCenteredSmallString(screen, "Level " + level
-								+ " - Bonus life!",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
-			}
+
 		}
 		else if (number >=2) {
 			drawCenteredSmallString(screen, "But the objects appear to have been thrown away ",
